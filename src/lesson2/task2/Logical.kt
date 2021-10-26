@@ -3,6 +3,7 @@
 package lesson2.task2
 
 import lesson1.task1.sqr
+import kotlin.math.max
 
 /**
  * Пример
@@ -59,14 +60,20 @@ fun circleInside(
  * кирпич 4 х 4 х 4 пройдёт через отверстие 4 х 4.
  * Вернуть true, если кирпич пройдёт
  */
+
+fun averageSide(a: Int, b: Int, c: Int): Int {
+    var average: Int = 0
+    val sides = mutableListOf<Int>(a, b, c)
+    for (element in sides) {
+        if ((element != maxOf(a, b, c)) && (element != minOf(a, b, c)))
+            average = element
+    }
+    return average
+}
+
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
     return when {
-        a <= r && b <= s -> true
-        b <= r && a <= s -> true
-        a <= r && c <= s -> true
-        c <= r && a <= s -> true
-        b <= r && c <= s -> true
-        c <= r && b <= s -> true
+        (averageSide(a, b, c) <= r && minOf(a, b, c) <= s) || (averageSide(a, b, c) <= s && minOf(a, b, c) <= r) -> true
         else -> false
     }
 }

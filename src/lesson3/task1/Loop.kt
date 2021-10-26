@@ -81,11 +81,7 @@ fun digitNumber(n: Int): Int = TODO()
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int {
-    if (n in 1..2) return 1
-    else return fib(n - 1) + fib(n - 2)
-
-}
+fun fib(n: Int): Int = TODO()
 
 /**
  * Простая (2 балла)
@@ -155,7 +151,30 @@ fun revert(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean {
+    val digits = mutableListOf<Int>()
+    val digits2 = mutableListOf<Int>()
+    var num = n
+    if (num < 10) {
+        return true
+    } else {
+        while (num > 10) {
+            digits.add(num % 10)
+            num /= 10
+            if (num < 10) {
+                digits.add(num)
+                break
+            }
+        }
+    }
+    for (element in digits)
+        digits2.add(element)
+    digits2.reverse()
+    return when {
+        digits == digits2 -> true
+        else -> false
+    }
+}
 
 /**
  * Средняя (3 балла)
@@ -187,6 +206,7 @@ fun hasDifferentDigits(n: Int): Boolean {
         return false
     return true
 }
+
 /**
  * Средняя (4 балла)
  *
@@ -218,29 +238,8 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO() //{
-//var squares = 1
-//val digits1to9 = mutableListOf<Int>()
-//val digits9toInf = mutableListOf<Int>()
-//if (n in 1..3) {
-//for (i in 1..n) {
-//squares = i * i
-//digits1to9.add(squares)
-//}
-//}
-//if (n >= 4) {
-//for (i in 4..n) {
-//squares = i * i
-//digits9toInf.add(squares)
-//}
-//}
-//if (n in 1..3) {
-//return digits1to9[n - 1]
-//}
-//if (n >= 4) {
-//return digits9toInf[n - 4]
-//}
-//}
+
+fun squareSequenceDigit(n: Int): Int = TODO()
 
 /**
  * Сложная (5 баллов)
