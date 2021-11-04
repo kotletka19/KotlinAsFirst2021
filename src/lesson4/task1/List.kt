@@ -2,7 +2,9 @@
 
 package lesson4.task1
 
+import kotlinx.html.MATH
 import lesson1.task1.discriminant
+import kotlin.math.abs
 import kotlin.math.sqrt
 
 // Урок 4: списки
@@ -137,7 +139,14 @@ fun mean(list: List<Double>): Double = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun center(list: MutableList<Double>): MutableList<Double> = TODO()
+fun center(list: MutableList<Double>): MutableList<Double> {
+    var average: Double = 0.0
+    average = list.sum() / list.size
+    for (i in 0..(list.size - 1)) {
+        list[i] -= average
+    }
+    return list
+}
 
 /**
  * Средняя (3 балла)
@@ -146,7 +155,13 @@ fun center(list: MutableList<Double>): MutableList<Double> = TODO()
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
-fun times(a: List<Int>, b: List<Int>): Int = TODO()
+fun times(a: List<Int>, b: List<Int>): Int {
+    var c: Int = 0
+    for (i in 0..(a.size - 1)) {
+        c += a[i] * b[i]
+    }
+    return c
+}
 
 /**
  * Средняя (3 балла)
@@ -168,7 +183,12 @@ fun polynom(p: List<Int>, x: Int): Int = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Int>): MutableList<Int> = TODO()
+fun accumulate(list: MutableList<Int>): MutableList<Int> {
+    for (i in 2..list.size) {
+        list[i - 1] = list.subList(0, i - 1).sum()
+    }
+    return list
+}
 
 /**
  * Средняя (3 балла)
@@ -186,6 +206,21 @@ fun factorize(n: Int): List<Int> = TODO()
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
+fun simpleDivs(n: Int): List<Int> {
+    val divs = mutableListOf<Int>()
+    val divs2 = mutableListOf<Int>()
+    for (numder in 1..n) {
+        for (i in 1..n) {
+            if (numder % i == 0) {
+                divs2.add(numder)
+            }
+        }
+        if (divs2.size == 2)
+            divs.add(numder)
+    }
+    return divs
+}
+
 fun factorizeToString(n: Int): String = TODO()
 
 /**
