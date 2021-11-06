@@ -183,7 +183,7 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *     "печенье"
  *   ) -> "Мария"
  */
-fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? = TODO()
+fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String = TODO()
 
 /**
  * Средняя (3 балла)
@@ -194,7 +194,19 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
+fun canBuildFrom(chars: List<Char>, word: String): Boolean {
+    var isItTrue: Boolean = false
+    var sum: Int = 0
+    for (char in chars) {
+        if (char in word) {
+            sum += 1
+        }
+        if (sum == chars.size) {
+            isItTrue = true
+        }
+    }
+    return isItTrue
+}
 
 /**
  * Средняя (4 балла)
@@ -208,7 +220,26 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
  * Например:
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
-fun extractRepeats(list: List<String>): Map<String, Int> = TODO()
+fun extractRepeats(list: List<String>): Map<String, Int> {
+    val list2 = mutableListOf<String>()
+    val dict = mutableMapOf<String, Int>()
+    var sum: Int = 1
+    for (element in list) {
+        list2.add(element)
+    }
+    list2.sort()
+    for (i in 0..(list2.size - 2)) {
+        if (list2[i] == list2[i + 1]) {
+            sum += 1
+        } else {
+            if (sum > 1) {
+                dict.put(list2[i], sum)
+            }
+            sum = 1
+        }
+    }
+    return dict
+}
 
 /**
  * Средняя (3 балла)
@@ -222,7 +253,35 @@ fun extractRepeats(list: List<String>): Map<String, Int> = TODO()
  * Например:
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
-fun hasAnagrams(words: List<String>): Boolean = TODO()
+fun hasAnagrams(words: List<String>): Boolean {
+    val chars = mutableListOf<Char>()
+    val words1 = mutableListOf<String>()
+    val words2 = mutableListOf<String>()
+    var isItTrue: Boolean = false
+    var wordStr: String = ""
+    for (element in words) {
+        words1.add(element)
+    }
+    words1.sortedBy { it.length }
+    for (word in words1) {
+        for (char in word) {
+            chars.add(char)
+        }
+        chars.sort()
+        for (element in chars) {
+            wordStr += element
+        }
+        words2.add(wordStr)
+        wordStr = ""
+    }
+    words2.sort()
+    for (i in 0..(words2.size - 2)) {
+        if (words2[i] == words2[i + 1]) {
+            isItTrue = true
+        }
+    }
+    return isItTrue
+}
 
 /**
  * Сложная (5 баллов)
