@@ -74,7 +74,73 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val parts = str.split(" ")
+    val months = mutableMapOf<String, String>(
+        "января" to "01",
+        "февраля" to "02",
+        "марта" to "03",
+        "апреля" to "04",
+        "мая" to "05",
+        "июня" to "06",
+        "июля" to "07",
+        "августа" to "08",
+        "сентября" to "09",
+        "октября" to "10",
+        "ноября" to "11",
+        "декабря" to "12"
+    )
+    var digitDate = ""
+    if (parts[1] == "января" && parts.size == 3) {
+        if (parts[0].toInt() in 10..31) digitDate = parts[0] + months["января"] + parts[2]
+        if (parts[0].toInt() < 10) digitDate = parts[0][1].toString() + months["января"] + parts[2]
+    }
+    if (parts[1] == "февраля" && parts.size == 3) {
+        if (parts[0].toInt() in 10..28) digitDate = parts[0] + months["февраля"] + parts[2]
+        if (parts[0].toInt() < 10) digitDate = parts[0][1].toString() + months["февраля"] + parts[2]
+    }
+    if (parts[1] == "марта" && parts.size == 3) {
+        if (parts[0].toInt() in 10..31) digitDate = parts[0] + months["марта"] + parts[2]
+        if (parts[0].toInt() < 10) digitDate = parts[0][1].toString() + months["марта"] + parts[2]
+    }
+    if (parts[1] == "апреля" && parts.size == 3) {
+        if (parts[0].toInt() in 10..30) digitDate = parts[0] + months["апреля"] + parts[2]
+        if (parts[0].toInt() < 10) digitDate = parts[0][1].toString() + months["апреля"] + parts[2]
+    }
+    if (parts[1] == "мая" && parts.size == 3) {
+        if (parts[0].toInt() in 10..31) digitDate = parts[0] + months["мая"] + parts[2]
+        if (parts[0].toInt() < 10) digitDate = parts[0][1].toString() + months["мая"] + parts[2]
+    }
+    if (parts[1] == "июня" && parts.size == 3) {
+        if (parts[0].toInt() in 10..30) digitDate = parts[0] + months["июня"] + parts[2]
+        if (parts[0].toInt() < 10) digitDate = parts[0][1].toString() + months["июня"] + parts[2]
+    }
+    if (parts[1] == "июля" && parts.size == 3) {
+        if (parts[0].toInt() in 10..31) digitDate = parts[0] + "." + months["июля"] + "." + parts[2]
+        if (parts[0].toInt() < 10) digitDate = parts[0][1].toString() + "." + months["июля"] + "." + parts[2]
+    }
+    if (parts[1] == "августа" && parts.size == 3) {
+        if (parts[0].toInt() in 10..31) digitDate = parts[0] + months["августа"] + parts[2]
+        if (parts[0].toInt() < 10) digitDate = parts[0][1].toString() + months["августа"] + parts[2]
+    }
+    if (parts[1] == "сентября" && parts.size == 3) {
+        if (parts[0].toInt() in 10..30) digitDate = parts[0] + months["сентября"] + parts[2]
+        if (parts[0].toInt() < 10) digitDate = parts[0][1].toString() + months["сентября"] + parts[2]
+    }
+    if (parts[1] == "октября" && parts.size == 3) {
+        if (parts[0].toInt() in 10..31) digitDate = parts[0] + months["октября"] + parts[2]
+        if (parts[0].toInt() < 10) digitDate = parts[0][1].toString() + months["октября"] + parts[2]
+    }
+    if (parts[1] == "ноября" && parts.size == 3) {
+        if (parts[0].toInt() in 10..30) digitDate = parts[0] + "." + months["ноября"] + "." + parts[2]
+        if (parts[0].toInt() < 10) digitDate = parts[0][1].toString() + "." + months["ноября"] + "." + parts[2]
+    }
+    if (parts[1] == "декабря" && parts.size == 3) {
+        if (parts[0].toInt() in 10..31) digitDate = parts[0] + months["декабря"] + parts[2]
+        if (parts[0].toInt() < 10) digitDate = parts[0][1].toString() + months["декабря"] + parts[2]
+    }
+    return digitDate
+}
 
 /**
  * Средняя (4 балла)
@@ -86,8 +152,75 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
-
+fun dateDigitToStr(digital: String): String {
+    val parts = digital.split(".")
+    var dateStr = ""
+    val months = mutableMapOf<String, String>(
+        "01" to " января ",
+        "02" to " февраля ",
+        "03" to " марта ",
+        "04" to " апреля ",
+        "05" to " мая ",
+        "06" to " июня",
+        "07" to " июля ",
+        "08" to " августа ",
+        "09" to " сентября ",
+        "10" to " октября ",
+        "11" to " ноября ",
+        "12" to " декабря "
+    )
+    if (parts[1] == "01" && parts.size == 3) {
+        if (parts[0].toInt() in 10..31) dateStr = parts[0] + months["01"] + parts[2]
+        if (parts[0].toInt() < 10) dateStr = parts[0][1].toString() + months["01"] + parts[2]
+    }
+    if (parts[1] == "02" && parts.size == 3) {
+        if (parts[0].toInt() in 10..28) dateStr = parts[0] + months["02"] + parts[2]
+        if (parts[0].toInt() < 10) dateStr = parts[0][1].toString() + months["02"] + parts[2]
+    }
+    if (parts[1] == "03" && parts.size == 3) {
+        if (parts[0].toInt() in 10..31) dateStr = parts[0] + months["03"] + parts[2]
+        if (parts[0].toInt() < 10) dateStr = parts[0][1].toString() + months["03"] + parts[2]
+    }
+    if (parts[1] == "04" && parts.size == 3) {
+        if (parts[0].toInt() in 10..30) dateStr = parts[0] + months["04"] + parts[2]
+        if (parts[0].toInt() < 10) dateStr = parts[0][1].toString() + months["04"] + parts[2]
+    }
+    if (parts[1] == "05" && parts.size == 3) {
+        if (parts[0].toInt() in 10..31) dateStr = parts[0] + months["05"] + parts[2]
+        if (parts[0].toInt() < 10) dateStr = parts[0][1].toString() + months["05"] + parts[2]
+    }
+    if (parts[1] == "06" && parts.size == 3) {
+        if (parts[0].toInt() in 10..30) dateStr = parts[0] + months["06"] + parts[2]
+        if (parts[0].toInt() < 10) dateStr = parts[0][1].toString() + months["06"] + parts[2]
+    }
+    if (parts[1] == "07" && parts.size == 3) {
+        if (parts[0].toInt() in 10..31) dateStr = parts[0] + months["07"] + parts[2]
+        if (parts[0].toInt() < 10) dateStr = parts[0][1].toString() + months["07"] + parts[2]
+    }
+    if (parts[1] == "08" && parts.size == 3) {
+        if (parts[0].toInt() in 10..31) dateStr = parts[0] + months["08"] + parts[2]
+        if (parts[0].toInt() < 10) dateStr = parts[0][1].toString() + months["08"] + parts[2]
+    }
+    if (parts[1] == "09" && parts.size == 3) {
+        if (parts[0].toInt() in 10..30) dateStr = parts[0] + months["09"] + parts[2]
+        if (parts[0].toInt() < 10) dateStr = parts[0][1].toString() + months["09"] + parts[2]
+    }
+    if (parts[1] == "10" && parts.size == 3) {
+        if (parts[0].toInt() in 10..31) dateStr = parts[0] + months["10"] + parts[2]
+        if (parts[0].toInt() < 10) dateStr = parts[0][1].toString() + months["10"] + parts[2]
+    }
+    if (parts[1] == "11" && parts.size == 3) {
+        if (parts[0].toInt() in 10..30) dateStr = parts[0] + months["11"] + parts[2]
+        if (parts[0].toInt() < 10) dateStr = parts[0][1].toString() + months["11"] + parts[2]
+    }
+    if (parts[1] == "12" && parts.size == 3) {
+        if (parts[0].toInt() in 10..31) dateStr = parts[0] + months["12"] + parts[2]
+        if (parts[0].toInt() < 10) dateStr = parts[0][1].toString() + months["12"] + parts[2]
+    }
+    return dateStr
+}
+// я пробовал сделать так, чтобы в мапе в значении была пара <название месяца, макс.кол-во дней> и с помощью цикла
+// проверять количесво дней в данном месяце, но у меня не получилось, как и в прошлой задаче
 /**
  * Средняя (4 балла)
  *
@@ -114,7 +247,29 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO()
+fun bestLongJump(jumps: String): Int {
+    val chars = mutableListOf<Char>('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '%', '-', ' ')
+    val result = mutableListOf<Int>()
+    var jump = ""
+    var jumps1 = ""
+    var maxJump = 0
+    jumps1 = jumps.replace("%", " ")
+    jumps1 = jumps1.replace("-", " ")
+    for (i in 1..(jumps1.length - 2)) {
+        if (jumps1[i - 1] !in chars) return -1
+        else if (jumps1[i - 1] != ' ' && jumps1[i] != ' ' && jumps1[i + 1] != ' ') {
+            jump = jumps[i - 1].toString() + jumps1[i].toString() + jumps1[i + 1].toString()
+            result.add(jump.toInt())
+        }
+    }
+    if (result.size == 0) {
+        return -1
+    } else {
+        result.sort()
+        result.reverse()
+        return result[0]
+    }
+}
 
 /**
  * Сложная (6 баллов)
