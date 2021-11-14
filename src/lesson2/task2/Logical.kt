@@ -73,7 +73,11 @@ fun averageSide(a: Int, b: Int, c: Int): Int {
 
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
     return when {
-        (averageSide(a, b, c) <= r && minOf(a, b, c) <= s) || (averageSide(a, b, c) <= s && minOf(a, b, c) <= r) -> true
+        (averageSide(a, b, c) <= r && minOf(a, b, c) <= s) || (averageSide(a, b, c) <= s && minOf(
+            a,
+            b,
+            c
+        ) <= r) || maxOf(a, b, c) <= r && minOf(a, b, c) <= s || maxOf(a, b, c) <= s && minOf(a, b, c) <= r -> true
         else -> false
     }
 }
