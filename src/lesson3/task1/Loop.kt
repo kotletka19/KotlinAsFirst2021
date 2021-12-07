@@ -151,29 +151,35 @@ fun revert(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
+
+fun DigitToList(n: Int): List<Int> {
+    val digits = mutableListOf<Int>()
+    var num = n
+    while (num >= 10) {
+        digits.add(num % 10)
+        num /= 10
+        if (num < 10) {
+            digits.add(num)
+            break
+        }
+    }
+    return digits
+}
+
 fun isPalindrome(n: Int): Boolean {
     val digits = mutableListOf<Int>()
     val digits2 = mutableListOf<Int>()
-    var num = n
+    val num = n
     if (num < 10) {
         return true
     } else {
-        while (num > 10) {
-            digits.add(num % 10)
-            num /= 10
-            if (num < 10) {
-                digits.add(num)
-                break
-            }
-        }
+        digits.addAll(DigitToList(num))
     }
-    for (element in digits)
-        digits2.add(element)
+    digits2.addAll(digits)
     digits2.reverse()
-    return when {
-        digits == digits2 -> true
-        else -> false
-    }
+    var isItPalindrome = false
+    if (digits == digits2) isItPalindrome = true
+    return isItPalindrome
 }
 
 /**
@@ -186,25 +192,15 @@ fun isPalindrome(n: Int): Boolean {
  */
 fun hasDifferentDigits(n: Int): Boolean {
     val digits = mutableListOf<Int>()
-    var digit = n
+    val num = n
     var isItTrue: Boolean = false
-    while (digit > 10) {
-        digits.add(digit % 10)
-        digit /= 10
-        if (digit < 10) {
-            digits.add(digit)
-            break
-        }
-    }
-    digits.sort()
+    digits.addAll(DigitToList(num))
     for (i in 2..digits.size) {
         if (digits[i - 2] != digits[i - 1]) {
             isItTrue = true
         }
     }
-    if (isItTrue == false)
-        return false
-    return true
+    return isItTrue
 }
 
 /**
