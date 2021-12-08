@@ -195,14 +195,18 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean {
-    var isItTrue: Boolean = false
+    var isItTrue = false
     var sum: Int = 0
-    for (char in chars) {
-        if (char in word) {
-            sum += 1
-        }
-        if (sum == chars.size) {
-            isItTrue = true
+    if (chars.size == 0 && word.length == 0 || chars.size == 1 && word.length == 1) {
+        isItTrue = true
+    } else {
+        for (char in chars) {
+            if (char in word) {
+                sum += 1
+            }
+            if (sum == chars.size) {
+                isItTrue = true
+            }
         }
     }
     return isItTrue
@@ -223,17 +227,21 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
 fun extractRepeats(list: List<String>): Map<String, Int> {
     val list2 = mutableListOf<String>()
     val dict = mutableMapOf<String, Int>()
-    var sum: Int = 1
-    for (element in list) {
-        list2.add(element)
-    }
+    var sum = 1
+    list2.addAll(list)
     list2.sort()
     for (i in 0..(list2.size - 2)) {
+        if (list2.first() == list2.last()) {
+            dict.put(list2[0], list2.size)
+            break
+        }
         if (list2[i] == list2[i + 1]) {
             sum += 1
         } else {
             if (sum > 1) {
                 dict.put(list2[i], sum)
+            } else if (sum == 1) {
+                continue
             }
             sum = 1
         }
@@ -259,9 +267,7 @@ fun hasAnagrams(words: List<String>): Boolean {
     val words2 = mutableListOf<String>()
     var isItTrue: Boolean = false
     var wordStr: String = ""
-    for (element in words) {
-        words1.add(element)
-    }
+    words1.addAll(words)
     words1.sortedBy { it.length }
     for (word in words1) {
         for (char in word) {
