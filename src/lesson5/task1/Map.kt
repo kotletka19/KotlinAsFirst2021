@@ -214,6 +214,7 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
     if (chars.size >= 1 && word == "") {
         isItTrue = true
     }
+    if (chars.size == 1 && word.length == 1 && chars[0].toString() != word) isItTrue = false
     return isItTrue
 }
 
