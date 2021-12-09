@@ -2,6 +2,8 @@
 
 package lesson5.task1
 
+import ru.spbstu.wheels.NullableMonad.filter
+
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
 // Рекомендуемое количество баллов = 9
@@ -209,6 +211,9 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
             }
         }
     }
+    if (chars.size >= 1 && word == "") {
+        isItTrue = true
+    }
     return isItTrue
 }
 
@@ -225,25 +230,18 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
 fun extractRepeats(list: List<String>): Map<String, Int> {
-    val list2 = mutableListOf<String>()
     val dict = mutableMapOf<String, Int>()
-    var sum = 1
-    list2.addAll(list)
-    list2.sort()
-    for (i in 0..(list2.size - 2)) {
-        if (list2.first() == list2.last()) {
-            dict.put(list2[0], list2.size)
-            break
-        }
-        if (list2[i] == list2[i + 1]) {
-            sum += 1
-        } else {
-            if (sum > 1) {
-                dict.put(list2[i], sum)
-            } else if (sum == 1) {
-                continue
-            }
-            sum = 1
+    val res = mutableMapOf<String, Int>()
+    val list1 = mutableListOf<String>()
+    list1.addAll(list)
+    list1.sort()
+
+    for (element in list1) {
+        dict.put(element, list1.count { it == element })
+    }
+    for (key in list1) {
+        if (dict[key] == 1) {
+            dict.remove(key)
         }
     }
     return dict

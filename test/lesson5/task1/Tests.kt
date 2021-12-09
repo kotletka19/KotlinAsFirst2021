@@ -236,6 +236,7 @@ class Tests {
         assertTrue(canBuildFrom(listOf('a', 'b', 'o'), "baobab"))
         assertFalse(canBuildFrom(listOf('a', 'm', 'r'), "Marat"))
         assertTrue(canBuildFrom(emptyList(), ""))
+        assertTrue(canBuildFrom(listOf('a'), ""))
     }
 
     @Test
@@ -256,6 +257,10 @@ class Tests {
         assertEquals(
             mapOf("" to 2),
             extractRepeats(listOf("", ""))
+        )
+        assertEquals(
+            mapOf("b" to 2),
+            extractRepeats(listOf("", "b", "b"))
         )
     }
 
