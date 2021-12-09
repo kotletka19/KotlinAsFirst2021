@@ -200,19 +200,28 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
     var isItTrue = false
     val sum = word.length
     var count = 0
-    if (chars.size == 0 && word.length == 0 || (chars.size == 1 && word.length == 1 && chars[0].toString() == word)) {
+    val chars1 = mutableListOf<Char>()
+    chars1.addAll(chars)
+    for (e in chars1) {
+        if (chars1.count { it == e } > 1) {
+            while (chars1.count { it == e } != 1) {
+                chars1.remove(e)
+            }
+        }
+    }
+    if (chars1.size == 0 && word.length == 0 || (chars1.size == 1 && word.length == 1 && chars1.toString() == word)) {
         isItTrue = true
     } else {
-        for (char in chars) {
+        for (char in chars1) {
             count += word.count { it == char }
         }
         if (count == sum) {
             isItTrue = true
         }
-        if (chars.size >= 1 && word == "") {
+        if (chars1.size >= 1 && word == "") {
             isItTrue = true
         }
-        if (chars.size == 1 && word.length == 1 && chars[0].toString() != word) isItTrue = false
+        //if (chars.size == 1 && word.length == 1 && chars.toString() != word) isItTrue = false
     }
     return isItTrue
 }
