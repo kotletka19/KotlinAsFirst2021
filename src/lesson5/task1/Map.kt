@@ -198,23 +198,22 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean {
     var isItTrue = false
-    var sum: Int = 0
-    if (chars.size == 0 && word.length == 0 || chars.size == 1 && word.length == 1) {
+    val sum = word.length
+    var count = 0
+    if (chars.size == 0 && word.length == 0 || (chars.size == 1 && word.length == 1 && chars[0].toString() == word)) {
         isItTrue = true
     } else {
         for (char in chars) {
-            if (char in word) {
-                sum += 1
-            }
-            if (sum == chars.size) {
-                isItTrue = true
-            }
+            count += word.count { it == char }
         }
+        if (count == sum) {
+            isItTrue = true
+        }
+        if (chars.size >= 1 && word == "") {
+            isItTrue = true
+        }
+        if (chars.size == 1 && word.length == 1 && chars[0].toString() != word) isItTrue = false
     }
-    if (chars.size >= 1 && word == "") {
-        isItTrue = true
-    }
-    if (chars.size == 1 && word.length == 1 && chars[0].toString() != word) isItTrue = false
     return isItTrue
 }
 
