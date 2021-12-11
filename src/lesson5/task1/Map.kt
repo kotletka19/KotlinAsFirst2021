@@ -3,6 +3,7 @@
 package lesson5.task1
 
 import ru.spbstu.wheels.NullableMonad.filter
+import java.nio.charset.StandardCharsets
 
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
@@ -269,33 +270,20 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
 fun hasAnagrams(words: List<String>): Boolean {
-    val chars = mutableListOf<Char>()
-    val words1 = mutableListOf<String>()
-    val words2 = mutableListOf<String>()
-    var isItTrue: Boolean = false
-    var wordStr: String = ""
-    words1.addAll(words)
-    words1.sortedBy { it.length }
-    for (word in words1) {
+    words.toMutableList()
+    val asciiWords = mutableListOf<Int>()
+    var sum = 0
+    var isItTrue = false
+    for (word in words) {
         for (char in word) {
-            chars.add(char)
+            sum += char.toByte().toInt()
         }
-        chars.sort()
-        for (element in chars) {
-            wordStr += element
-        }
-        words2.add(wordStr)
-        wordStr = ""
+        asciiWords.add(sum)
+        sum = 0
     }
-    words2.sort()
-    for (i in 0..(words2.size - 2)) {
-        if (words2[i] == words2[i + 1]) {
-            isItTrue = true
-        }
-    }
+    isItTrue = asciiWords.size != asciiWords.toMutableSet().size
     return isItTrue
 }
-
 /**
  * Сложная (5 баллов)
  *
