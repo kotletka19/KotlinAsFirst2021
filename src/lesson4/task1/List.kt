@@ -207,23 +207,7 @@ fun factorize(n: Int): List<Int> = TODO()
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun simpleDivs(n: Int): List<Int> {
-    val divs = mutableListOf<Int>()
-    val divs2 = mutableListOf<Int>()
-    for (numder in 1..n) {
-        for (i in 1..n) {
-            if (numder % i == 0) {
-                divs2.add(numder)
-            }
-        }
-        if (divs2.size == 2)
-            divs.add(numder)
-    }
-    return divs
-}
-
 fun factorizeToString(n: Int): String = TODO()
-
 /**
  * Средняя (3 балла)
  *
@@ -277,7 +261,20 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+    val discharge1 = mutableListOf<String>("", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX")
+    val discharge10 = mutableListOf<String>("", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC")
+    val discharge100 = mutableListOf<String>("", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM")
+    val discharge1000 = mutableListOf<String>("", "M", "MM", "MMM", "MMMM")
+    val resDis1 = discharge1[n % 10]
+    val resDis10 = discharge10[n / 10 % 10]
+    val resDis100 = discharge100[n / 100 % 10]
+    val resDis1000 = discharge1000[n / 1000]
+
+    val arToRoman = resDis1000 + resDis100 + resDis10 + resDis1
+
+    return arToRoman
+}
 
 /**
  * Очень сложная (7 баллов)
