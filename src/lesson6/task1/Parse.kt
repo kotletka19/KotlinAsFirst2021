@@ -87,31 +87,6 @@ fun dateStrToDigit(str: String): String = TODO()
  * входными данными.
  */
 fun dateDigitToStr(digital: String): String = TODO()
-// val numMonth = mutableMapOf<Int, String>(
-//   1 to "01",
-// 2 to "02",
-//3 to "03",
-//4 to "04",
-//  5 to "05",
-//6 to "06",
-//7 to "07",
-//8 to "08",
-//9 to "09",
-//10 to "10",
-//11 to "11",
-//12 to "12",
-//)
-//var monthNumStr = ""
-//val dateList = digital.split('.')
-//for (month in 1..12) {
-// if (month in 1..9) {
-//   monthNumStr = "0" + month.toString()
-//} else {
-//    monthNumStr = month.toString()
-// }
-
-//}
-//}
 
 /**
  * Средняя (4 балла)

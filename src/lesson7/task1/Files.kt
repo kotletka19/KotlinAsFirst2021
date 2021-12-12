@@ -2,6 +2,7 @@
 
 package lesson7.task1
 
+import lesson5.task1.containsIn
 import java.io.File
 
 // Урок 7: работа с файлами
@@ -83,8 +84,27 @@ fun deleteMarked(inputName: String, outputName: String) {
  * Регистр букв игнорировать, то есть буквы е и Е считать одинаковыми.
  *
  */
-fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> = TODO()
+fun subInStr(sub: String, str: String, c: Int): Int {
+    var count = 0
+    if (sub !in str) return c
+    else {
+        count = c + 1
+        return subInStr(sub, str.substring(str.indexOf(sub) + 1), count)
+    }
+}
 
+fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
+    val result = mutableMapOf<String, Int>()
+    var sum = 0
+    for (sub in substrings) {
+        for (line in File(inputName).readLines()) {
+            sum += subInStr(sub.lowercase(), line.lowercase(), 0)
+        }
+        result.put(sub, sum)
+        sum = 0
+    }
+    return result
+}
 
 /**
  * Средняя (12 баллов)
@@ -121,7 +141,7 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    TODO()
+
 }
 
 /**
@@ -214,6 +234,7 @@ fun top20Words(inputName: String): Map<String, Int> = TODO()
  */
 fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: String) {
     TODO()
+
 }
 
 /**
@@ -503,4 +524,5 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
 fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     TODO()
 }
+
 
