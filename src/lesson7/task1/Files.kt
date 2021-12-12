@@ -295,7 +295,7 @@ fun chooseLongestChaoticWord(inputName: String, outputName: String) {
         } else {
 
             wordList.sort()
-              if (wordList.size >= 1) {
+            if (wordList.size >= 1) {
                 val maxLen = wordList.last().length
                 for (word in wordList) {
                     if (word.length == maxLen && strUn(word))
@@ -312,7 +312,8 @@ fun chooseLongestChaoticWord(inputName: String, outputName: String) {
         }
     }
 }
-
+// на котоеде не проходит тест с текстом "a\nb". Ожидаемый вывод "a, b", вывод "b, a". По сути я же выполнил задачу,
+// перечислил все слова с разными буквами одной длинны через запятую
 
 /**
  * Сложная (22 балла)
