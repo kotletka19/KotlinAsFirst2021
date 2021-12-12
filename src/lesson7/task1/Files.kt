@@ -2,8 +2,10 @@
 
 package lesson7.task1
 
+import kotlinx.html.dom.write
 import lesson5.task1.containsIn
 import java.io.File
+import java.util.*
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
@@ -264,14 +266,12 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
 fun strUn(str: String): Boolean {
     var isItTrue = false
     val strList = mutableListOf<Any>()
-
-    for (char in str) {
+    val str1 = str.toLowerCase()
+    for (char in str1) {
         strList.add(char)
     }
 
-    if (strList == strList.distinct()) {
-        isItTrue = true
-    }
+    isItTrue = strList == strList.distinct()
     return isItTrue
 }
 
@@ -279,39 +279,38 @@ fun chooseLongestChaoticWord(inputName: String, outputName: String) {
     val result = File(outputName).bufferedWriter()
     var resultStr = ""
     val wordList = mutableListOf<String>()
+    var resultOneChar = ""
     if (File(inputName).readText() == "") {
         result.close()
     } else {
         for (line in File(inputName).readLines()) {
-            line.toLowerCase()
+            resultOneChar += line
             if (strUn(line)) {
-                wordList.add(line.toLowerCase())
+                wordList.add(line.toLowerCase().capitalize())
             }
         }
-
-        wordList.sort()
-        var maxLen = 0
-        maxLen = wordList.last().length
+    }
+    wordList.sort()
+    val maxLen = wordList.last().length
+    if (resultOneChar.length == 1) {
+        result.write(resultOneChar)
+        result.close()
+    } else if (resultOneChar.length > 1) {
         for (word in wordList) {
-            if (word.length == maxLen && strUn(word)) {
+            if (word.length == maxLen && strUn(word))
                 if (word.length > 1) {
                     resultStr += word.capitalize() + ", "
                 } else {
                     resultStr += word + ", "
                 }
-            }
         }
-
         var resultStr1 = ""
-        for (i in 0..resultStr.length - 3) {
+        for (i in 0..resultStr.length - 3)
             resultStr1 += resultStr[i]
-        }
-        if (resultStr1.length == 1) resultStr1.toLowerCase()
         result.write(resultStr1)
         result.close()
     }
 }
-
 
 /**
  * Сложная (22 балла)
