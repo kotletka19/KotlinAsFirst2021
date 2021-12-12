@@ -295,15 +295,11 @@ fun chooseLongestChaoticWord(inputName: String, outputName: String) {
         } else {
 
             wordList.sort()
-            if (resultOneChar.length == 1) {
-                result.write(resultOneChar)
-                result.close()
-
-            } else if (resultOneChar.length > 1 && wordList.size >= 1) {
+              if (wordList.size >= 1) {
                 val maxLen = wordList.last().length
                 for (word in wordList) {
                     if (word.length == maxLen && strUn(word))
-                        if (word.length > 1) {
+                        if (word.length >= 1) {
                             resultStr += word + ", "
                         }
                 }
