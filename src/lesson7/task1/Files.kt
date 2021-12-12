@@ -141,7 +141,7 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-
+    TODO()
 }
 
 /**
@@ -294,7 +294,11 @@ fun chooseLongestChaoticWord(inputName: String, outputName: String) {
         maxLen = wordList.last().length
         for (word in wordList) {
             if (word.length == maxLen && strUn(word)) {
-                resultStr += word.capitalize() + ", "
+                if (word.length > 1) {
+                    resultStr += word.capitalize() + ", "
+                } else {
+                    resultStr += word + ", "
+                }
             }
         }
 
