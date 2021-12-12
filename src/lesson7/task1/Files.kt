@@ -277,18 +277,16 @@ fun chooseLongestChaoticWord(inputName: String, outputName: String) {
             }
         }
 
-        for (line in File(inputName).readLines()) {
-            if (line == "")
-                result.write("")
-        }
         var resultStr1 = ""
         for (i in 0..resultStr.length - 3) {
             resultStr1 += resultStr[i]
         }
+        if (resultStr1.length == 1) resultStr1.toLowerCase()
         result.write(resultStr1)
         result.close()
     }
 }
+
 
 /**
  * Сложная (22 балла)

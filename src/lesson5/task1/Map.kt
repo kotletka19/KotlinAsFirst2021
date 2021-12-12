@@ -198,13 +198,13 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean {
-    var isItTrue = false
+    var isItCanBuild = false
     val sum = word.length
     var count = 0
     val chars1 = mutableListOf<Char>()
     chars1.addAll(chars)
     if (word.length == 0) {
-        isItTrue = true
+        isItCanBuild = true
     } else {
         for (e in chars1) {
             if (chars1.count { it == e } > 1) {
@@ -215,16 +215,16 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
         }
     }
     if (chars1.size == 0 && word.length == 0 || (chars1.size == 1 && word.length == 1 && chars1.toString() == word)) {
-        isItTrue = true
+        isItCanBuild = true
     } else {
         for (char in chars1) {
             count += word.count { it == char }
         }
         if (count == sum) {
-            isItTrue = true
+            isItCanBuild = true
         }
     }
-    return isItTrue
+    return isItCanBuild
 }
 
 /**
@@ -244,7 +244,6 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
     val res = mutableMapOf<String, Int>()
     val list1 = mutableListOf<String>()
     list1.addAll(list)
-    list1.sort()
 
     for (element in list1) {
         dict.put(element, list1.count { it == element })
@@ -270,11 +269,11 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
 fun hasAnagrams(words: List<String>): Boolean {
-    words.toMutableList()
     val asciiWords = mutableListOf<Int>()
     var sum = 0
     var isItTrue = false
     for (word in words) {
+
         for (char in word) {
             sum += char.toByte().toInt()
         }

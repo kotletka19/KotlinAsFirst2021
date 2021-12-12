@@ -62,7 +62,7 @@ fun circleInside(
  */
 
 fun averageSide(a: Int, b: Int, c: Int): Int {
-    var average: Int = 0
+    var average = 0
     val sides = mutableListOf<Int>(a, b, c)
     sides.sort()
     average = sides[1]
@@ -72,17 +72,10 @@ fun averageSide(a: Int, b: Int, c: Int): Int {
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
     val eSides = mutableSetOf<Int>(a, b, c)
     var isItTrue = false
-    if ((averageSide(a, b, c) <= r && minOf(a, b, c) <= s) || (averageSide(a, b, c) <= s && minOf(
-            a,
-            b,
-            c
-        ) <= r) || maxOf(a, b, c) <= r && minOf(a, b, c) <= s || maxOf(a, b, c) <= s && minOf(
-            a,
-            b,
-            c
-        ) <= r || eSides.size == 1 && averageSide(a, b, c) == r || eSides.size == 1 && averageSide(a, b, c) == s
-    ) {
-        isItTrue = true
-    }
+    isItTrue = (averageSide(a, b, c) <= r && minOf(a, b, c) <= s) || (averageSide(a, b, c) <= s && minOf(
+        a,
+        b,
+        c
+    ) <= r) || (eSides.size == 1 && (averageSide(a, b, c) == r || averageSide(a, b, c) == s))
     return isItTrue
 }

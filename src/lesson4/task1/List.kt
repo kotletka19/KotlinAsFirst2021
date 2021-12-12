@@ -4,7 +4,7 @@ package lesson4.task1
 
 import kotlinx.html.MATH
 import lesson1.task1.discriminant
-import lesson3.task1.DigitToList
+import lesson3.task1.digitToList
 import kotlin.math.abs
 import kotlin.math.sqrt
 
@@ -141,9 +141,9 @@ fun mean(list: List<Double>): Double = TODO()
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
-    var average: Double = 0.0
-    average = list.sum() / list.size
-    for (i in 0..(list.size - 1)) {
+    var average = 0.0
+    if (list.size >= 1) average = list.sum() / list.size
+    for (i in 0 until list.size) {
         list[i] -= average
     }
     return list
@@ -187,6 +187,7 @@ fun polynom(p: List<Int>, x: Int): Int = TODO()
 fun accumulate(list: MutableList<Int>): MutableList<Int> {
     for (i in 2..list.size) {
         list[i - 1] = list.subList(0, i - 1).sum()
+        break
     }
     return list
 }
