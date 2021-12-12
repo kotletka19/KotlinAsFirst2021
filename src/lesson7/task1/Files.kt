@@ -281,6 +281,7 @@ fun chooseLongestChaoticWord(inputName: String, outputName: String) {
     val wordList = mutableListOf<String>()
     var resultOneChar = ""
     if (File(inputName).readText() == "") {
+        result.write(resultStr)
         result.close()
     } else {
         for (line in File(inputName).readLines()) {
