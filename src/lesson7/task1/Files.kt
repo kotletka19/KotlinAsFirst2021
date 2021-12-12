@@ -258,28 +258,37 @@ fun chooseLongestChaoticWord(inputName: String, outputName: String) {
     val result = File(outputName).bufferedWriter()
     var resultStr = ""
     val wordList = mutableListOf<String>()
-
-    for (line in File(inputName).readLines()) {
-        line.toLowerCase()
-        if (strUn(line)) {
-            wordList.add(line.toLowerCase())
+    if (!File(inputName).readText().equals(Regex("""\s*"""))) {
+        for (line in File(inputName).readLines()) {
+            line.toLowerCase()
+            if (strUn(line)) {
+                wordList.add(line.toLowerCase())
+            }
         }
-    }
-    wordList.sort()
-    var maxLen = 0
-    maxLen = wordList.last().length
-    for (word in wordList) {
-        if (word.length == maxLen && strUn(word)) {
-            resultStr += word.capitalize() + ", "
-        }
-    }
 
-    var resultStr1 = ""
-    for (i in 0..resultStr.length - 3) {
-        resultStr1 += resultStr[i]
+        wordList.sort()
+        var maxLen = 0
+        maxLen = wordList.last().length
+        for (word in wordList) {
+            if (word.length == maxLen && strUn(word)) {
+                resultStr += word.capitalize() + ", "
+            }
+        }
+
+        for (line in File(inputName).readLines()) {
+            if (line == "")
+                result.write("")
+        }
+        var resultStr1 = ""
+        for (i in 0..resultStr.length - 3) {
+            resultStr1 += resultStr[i]
+        }
+        result.write(resultStr1)
+        result.close()
+    } else {
+        result.write("")
+        result.close()
     }
-    result.write(resultStr1)
-    result.close()
 }
 
 /**
