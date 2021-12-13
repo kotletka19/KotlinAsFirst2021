@@ -81,7 +81,20 @@ fun digitNumber(n: Int): Int = TODO()
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int {
+    var f1 = 1
+    var f2 = 1
+    var fsum = 0
+    var i = 0
+    if (n in 1..2) fsum = 1
+    while (i < n - 2) {
+        fsum = f1 + f2
+        f1 = f2
+        f2 = fsum
+        i += 1
+    }
+    return fsum
+}
 
 /**
  * Простая (2 балла)
@@ -152,7 +165,7 @@ fun revert(n: Int): Int = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 
-fun DigitToList(n: Int): List<Int> {
+fun digitToList(n: Int): List<Int> {
     val digits = mutableListOf<Int>()
     var num = n
     while (num >= 10) {
@@ -170,15 +183,13 @@ fun isPalindrome(n: Int): Boolean {
     val digits = mutableListOf<Int>()
     val digits2 = mutableListOf<Int>()
     val num = n
-    if (num < 10) {
-        return true
-    } else {
-        digits.addAll(DigitToList(num))
-    }
+    var isItPalindrome = false
+    isItPalindrome = (num < 10)
+    if (!isItPalindrome)
+        digits.addAll(digitToList(num))
     digits2.addAll(digits)
     digits2.reverse()
-    var isItPalindrome = false
-    if (digits == digits2) isItPalindrome = true
+    isItPalindrome = (digits == digits2)
     return isItPalindrome
 }
 
@@ -193,11 +204,12 @@ fun isPalindrome(n: Int): Boolean {
 fun hasDifferentDigits(n: Int): Boolean {
     val digits = mutableListOf<Int>()
     val num = n
-    var isItTrue: Boolean = false
-    digits.addAll(DigitToList(num))
+    var isItTrue = false
+    digits.addAll(digitToList(num))
     for (i in 2..digits.size) {
         if (digits[i - 2] != digits[i - 1]) {
             isItTrue = true
+            break
         }
     }
     return isItTrue
@@ -235,7 +247,25 @@ fun cos(x: Double, eps: Double): Double = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var num = 1
+    var numSqr = 0
+    val numSqrS = mutableListOf<Any>()
+    for (i in 1..n) {
+        numSqr = num * num
+        if (numSqr < 10) {
+            numSqrS.add(numSqr)
+        } else {
+            val numSqrStr = numSqr.toString()
+            for (char in numSqrStr) {
+                numSqrS.add(char)
+            }
+        }
+        num += 1
+    }
+    val numn = numSqrS[n - 1].toString().toInt()
+    return numn
+}
 
 /**
  * Сложная (5 баллов)
@@ -246,4 +276,25 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+
+fun fibSequenceDigit(n: Int): Int {
+    var fib1 = 1
+    var fib2 = 1
+    var fibSum = 0
+    val fibs = mutableListOf<Any>(1, 1)
+    for (i in 1..n) {
+        fibSum = fib1 + fib2
+        if (fibSum < 10) {
+            fibs.add(fibSum)
+        } else {
+            val fibSumStr = fibSum.toString()
+            for (char in fibSumStr) {
+                fibs.add(char)
+            }
+        }
+        fib1 = fib2
+        fib2 = fibSum
+    }
+    val fibn = fibs[n - 1].toString().toInt()
+    return fibn
+}
