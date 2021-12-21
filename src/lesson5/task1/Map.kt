@@ -198,33 +198,14 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean {
-    var isItCanBuild = false
-    val sum = word.length
+    chars.forEach { it.toLowerCase() }
+    chars.toMutableList()
     var count = 0
-    val chars1 = mutableListOf<Char>()
-    chars1.addAll(chars)
-    if (word.length == 0) {
-        isItCanBuild = true
-    } else {
-        for (e in chars1) {
-            if (chars1.count { it == e } > 1) {
-                while (chars1.count { it == e } != 1) {
-                    chars1.remove(e)
-                }
-            }
-        }
+    val sum = word.length
+    for (char in word) {
+        if (char.toLowerCase() in chars) count += 1
     }
-    if (chars1.size == 0 && word.length == 0 || (chars1.size == 1 && word.length == 1 && chars1.toString() == word)) {
-        isItCanBuild = true
-    } else {
-        for (char in chars1) {
-            count += word.count { it == char }
-        }
-        if (count == sum) {
-            isItCanBuild = true
-        }
-    }
-    return isItCanBuild
+    return (sum == count)
 }
 
 /**
@@ -241,14 +222,11 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
  */
 fun extractRepeats(list: List<String>): Map<String, Int> {
     val dict = mutableMapOf<String, Int>()
-    val res = mutableMapOf<String, Int>()
-    val list1 = mutableListOf<String>()
-    list1.addAll(list)
-
-    for (element in list1) {
-        dict.put(element, list1.count { it == element })
+    list.toMutableList()
+    for (element in list) {
+        dict.put(element, list.count { it == element })
     }
-    for (key in list1) {
+    for (key in list) {
         if (dict[key] == 1) {
             dict.remove(key)
         }
@@ -269,20 +247,24 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
 fun hasAnagrams(words: List<String>): Boolean {
-    val asciiWords = mutableListOf<Int>()
-    var sum = 0
-    var isItTrue = false
+    val wordList = mutableListOf<Char>()
+    val wordsList = mutableListOf<String>()
+    var wordStr = ""
     for (word in words) {
-
         for (char in word) {
-            sum += char.toByte().toInt()
+            wordList.add(char.toLowerCase())
         }
-        asciiWords.add(sum)
-        sum = 0
+        wordList.sort()
+        for (char in wordList) {
+            wordStr += char
+        }
+        wordsList.add(wordStr)
+        wordStr = ""
+        wordList.clear()
     }
-    isItTrue = asciiWords.size != asciiWords.toMutableSet().size
-    return isItTrue
+    return wordsList.toList() != wordsList.distinct()
 }
+
 /**
  * Сложная (5 баллов)
  *
@@ -341,27 +323,13 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
     if (list.isEmpty()) {
         pair = -1 to -1
     } else {
-        if (list.size % 2 != 0) {
-            for (i in 1..list.size - 1) {
-                for (j in 0..list.size - 2) {
-                    if (list[i] + list[j] == number) {
-                        pair = j to i
-                    }
-                }
+        for (i in 1 until list.size) for (j in 0..list.size - 2) {
+            if (list[i] + list[j] == number) {
+                pair = j to i
             }
-            if (pair == 0 to 0) {
-                pair = -1 to -1
-            }
-        } else {
-            for (i in 1..list.size - 1) {
-                for (j in 0..list.size - 2) {
-                    if (list[i] + list[j] == number) {
-                        pair = i to j
-                    }
-                }
-            }
-            if (pair == 0 to 0)
-                pair = -1 to -1
+        }
+        if (pair == 0 to 0) {
+            pair = -1 to -1
         }
     }
     return pair

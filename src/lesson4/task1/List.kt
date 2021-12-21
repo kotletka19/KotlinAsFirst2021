@@ -184,12 +184,13 @@ fun polynom(p: List<Int>, x: Int): Int = TODO()
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun accumulate(list: MutableList<Int>): MutableList<Int> {
-    for (i in 2..list.size) {
-        list[i - 1] = list.subList(0, i - 1).sum()
-        break
+    if (list.isEmpty()) return list
+    for (i in 1 until list.size) {
+        list[i] += list[i - 1]
     }
     return list
 }
+
 
 /**
  * Средняя (3 балла)

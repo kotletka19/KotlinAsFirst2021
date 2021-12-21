@@ -115,21 +115,20 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
 fun bestLongJump(jumps: String): Int {
-    val chars = mutableListOf<Char>('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '%', '-', ' ')
+    val chars = listOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '%', '-', ' ')
     val result = mutableListOf<Int>()
     var jump = ""
-    var jumps1 = ""
+    var jumpsWithSpaces = ""
     var maxJump = 0
-    jumps1 = jumps.replace("%", " ")
-    jumps1 = jumps1.replace("-", " ")
-    for (i in 1..(jumps1.length - 2)) {
-        if (jumps1[i - 1] !in chars) return -1
-        else if (jumps1[i - 1] != ' ' && jumps1[i] != ' ' && jumps1[i + 1] != ' ') {
-            jump = jumps[i - 1].toString() + jumps1[i].toString() + jumps1[i + 1].toString()
+    jumpsWithSpaces = jumps.replace("%", " ").replace("-", " ")
+    for (i in 1..(jumpsWithSpaces.length - 2)) {
+        if (jumpsWithSpaces[i - 1] !in chars) return -1
+        else if (jumpsWithSpaces[i - 1] != ' ' && jumpsWithSpaces[i] != ' ' && jumpsWithSpaces[i + 1] != ' ') {
+            jump = jumps[i - 1].toString() + jumpsWithSpaces[i].toString() + jumpsWithSpaces[i + 1].toString()
             result.add(jump.toInt())
         }
     }
-    if (result.size == 0) {
+    if (result.isEmpty()) {
         return -1
     } else {
         result.sort()
@@ -198,39 +197,29 @@ fun mostExpensive(description: String): String = TODO()
  * Вернуть -1, если roman не является корректным римским числом
  */
 fun fromRoman(roman: String): Int {
-    val romanList = mutableListOf<Char>()
-    for (char in roman) {
-        romanList.add(char)
-    }
     var result = 0
-
-    val charsP = mutableListOf<Char>('I', 'V', 'X', 'L', 'C', 'D', 'M')
-    for (char in romanList) {
+    val charsP = listOf<Char>('I', 'V', 'X', 'L', 'C', 'D', 'M')
+    for (char in roman) {
         if (char !in charsP) {
             result = -1
             break
         }
     }
-
-    if (roman == "") {
-        result = -1
-    }
-
+    if (roman == "") result = -1
     val dictR = mutableMapOf<Char, Int>('I' to 1, 'V' to 5, 'X' to 10, 'L' to 50, 'C' to 100, 'D' to 500, 'M' to 1000)
-
     var i = 0
     if (result != -1) {
-        while (i < romanList.size - 1) {
-            if (dictR.getValue(romanList[i + 1]) > dictR.getValue(romanList[i])) {
-                result += dictR.getValue(romanList[i + 1]) - dictR.getValue(romanList[i])
+        while (i < roman.length - 1) {
+            if (dictR.getValue(roman[i + 1]) > dictR.getValue(roman[i])) {
+                result += dictR.getValue(roman[i + 1]) - dictR.getValue(roman[i])
                 i += 2
             } else {
-                result += dictR.getValue(romanList[i])
+                result += dictR.getValue(roman[i])
                 i += 1
             }
         }
-        if (romanList.size > i) {
-            result += dictR.getValue(romanList[romanList.size - 1])
+        if (roman.length > i) {
+            result += dictR.getValue(roman[roman.length - 1])
         }
     }
     return result

@@ -167,14 +167,8 @@ fun revert(n: Int): Int = TODO()
 
 fun digitToList(n: Int): List<Int> {
     val digits = mutableListOf<Int>()
-    var num = n
-    while (num >= 10) {
-        digits.add(num % 10)
-        num /= 10
-        if (num < 10) {
-            digits.add(num)
-            break
-        }
+    for (char in n.toString()) {
+        digits.add(char.toInt())
     }
     return digits
 }
