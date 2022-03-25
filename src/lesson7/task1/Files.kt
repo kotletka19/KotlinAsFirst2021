@@ -67,14 +67,15 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  */
 fun deleteMarked(inputName: String, outputName: String) {
     val result = File(outputName).bufferedWriter()
-    for (line in File(inputName).readLines()) {
-        if (line == "") result.newLine()
-        else if (line.first() != '_') {
-            result.write(line)
-            result.newLine()
+    result.use { result ->
+        for (line in File(inputName).readLines()) {
+            if (line == "") result.newLine()
+            else if (line.first() != '_') {
+                result.write(line)
+                result.newLine()
+            }
         }
     }
-    result.close()
 }
 
 /**
@@ -86,24 +87,22 @@ fun deleteMarked(inputName: String, outputName: String) {
  * Регистр букв игнорировать, то есть буквы е и Е считать одинаковыми.
  *
  */
-fun subInStr(sub: String, str: String, c: Int): Int {
-    var count = 0
-    if (sub !in str) return c
-    else {
-        count = c + 1
-        return subInStr(sub, str.substring(str.indexOf(sub) + 1), count)
-    }
-}
 
 fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
     val result = mutableMapOf<String, Int>()
-    var sum = 0
-    for (sub in substrings) {
-        for (line in File(inputName).readLines()) {
-            sum += subInStr(sub.lowercase(), line.lowercase(), 0)
+    val file = File(inputName).readLines().map { it.lowercase() }
+    var count = 0
+    var i = 0
+    for (str in substrings) {
+        count = 0
+        for (line in file) {
+            i = 0
+            while (str.length + i < line.length + 1) {
+                if (str.lowercase() == line.substring(i, i + str.length).lowercase()) count += 1
+                i += 1
+            }
         }
-        result.put(sub, sum)
-        sum = 0
+        result[str] = count
     }
     return result
 }

@@ -2,6 +2,7 @@
 
 package lesson5.task1
 
+import lesson7.task1.deleteMarked
 import ru.spbstu.wheels.NullableMonad.filter
 import java.nio.charset.StandardCharsets
 
@@ -198,12 +199,16 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean {
-    chars.forEach { it.toLowerCase() }
-    chars.toMutableList()
+    //chars.forEach { it.toLowerCase() }
+    //chars.map { it.lowercase() }
+    val charsL = mutableListOf<Char>()
+    for (el in chars)
+        charsL.add(el.toLowerCase())
+    //val charsMutable = chars.toMutableList()
     var count = 0
     val sum = word.length
     for (char in word) {
-        if (char.toLowerCase() in chars) count += 1
+        if (char.toLowerCase() in charsL) count += 1
     }
     return (sum == count)
 }
@@ -222,16 +227,10 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
  */
 fun extractRepeats(list: List<String>): Map<String, Int> {
     val dict = mutableMapOf<String, Int>()
-    list.toMutableList()
     for (element in list) {
-        dict.put(element, list.count { it == element })
+        dict[element] = dict.getOrDefault(element, 0) + 1
     }
-    for (key in list) {
-        if (dict[key] == 1) {
-            dict.remove(key)
-        }
-    }
-    return dict
+    return dict.filterValues { it > 1 }
 }
 
 /**
@@ -262,7 +261,7 @@ fun hasAnagrams(words: List<String>): Boolean {
         wordStr = ""
         wordList.clear()
     }
-    return wordsList.toList() != wordsList.distinct()
+    return wordsList != wordsList.distinct()
 }
 
 /**
@@ -319,22 +318,14 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
-    var pair = 0 to 0
-    if (list.isEmpty()) {
-        pair = -1 to -1
-    } else {
-        for (i in 1 until list.size) for (j in 0..list.size - 2) {
-            if (list[i] + list[j] == number) {
-                pair = j to i
-            }
-        }
-        if (pair == 0 to 0) {
-            pair = -1 to -1
-        }
+    val error = Pair(-1, -1)
+    val map = mutableMapOf<Int, Int>()
+    for (i in list.indices) {
+        if (list[i] in map) return Pair(map.getOrDefault(list[i], -1), i)
+        map[number - list[i]] = i
     }
-    return pair
+    return error
 }
-
 /**
  * Очень сложная (8 баллов)
  *
